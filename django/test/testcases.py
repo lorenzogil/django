@@ -746,7 +746,7 @@ class TransactionTestCase(SimpleTestCase):
             if self.reset_sequences:
                 self._reset_sequences(db_name)
 
-            if hasattr(self, 'fixtures'):
+            if hasattr(self, 'fixtures') and self.fixtures:
                 # We have to use this slightly awkward syntax due to the fact
                 # that we're using *args and **kwargs together.
                 call_command('loaddata', *self.fixtures,
@@ -838,7 +838,7 @@ class TestCase(TransactionTestCase):
         disable_transaction_methods()
 
         for db_name in self._databases_names(include_mirrors=False):
-            if hasattr(self, 'fixtures'):
+            if hasattr(self, 'fixtures') and self.fixtures:
                 try:
                     call_command('loaddata', *self.fixtures,
                                  **{
